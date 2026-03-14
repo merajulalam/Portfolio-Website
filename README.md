@@ -1,7 +1,6 @@
 🚀 Live Demo
 
-🔗 Website:
-merajulalam.netlify.app
+🔗 Website: [Live Link](merajulalam.netlify.app)
 
 📌 Features
 
