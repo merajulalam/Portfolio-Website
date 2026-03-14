@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Merajul Alam</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 fill=%22%2305050d%22/><text x=%2250%22 y=%2272%22 font-size=%2275%22 font-family=%22sans-serif%22 font-weight=%22bold%22 fill=%22%237fffd4%22 text-anchor=%22middle%22>M</text></svg>">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;1,300&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- EmailJS -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- BACKGROUND LAYERS -->
+  <canvas id="bg-canvas"></canvas>
+  <div class="aurora-layer">
+    <div class="aurora-blob"></div>
+    <div class="aurora-blob"></div>
+    <div class="aurora-blob"></div>
+    <div class="aurora-blob"></div>
+  </div>
+  <div class="bg-grid"></div>
+
+  <!-- CURSOR -->
+  <canvas id="cursor-trail-canvas"></canvas>
+  <div id="cursor-outer"></div>
+  <div id="cursor-inner"></div>
+
+  <!-- CV MODAL -->
+  <div class="modal-overlay" id="cvModalOverlay">
+    <div class="modal" id="cvModal"
+      style="max-width:860px;width:100%;height:90vh;display:flex;flex-direction:column;padding:0;overflow:hidden;">
+      <div
+        style="display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.8rem;border-bottom:1px solid var(--border);flex-shrink:0;">
+        <span style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);">Curriculum Vitae</span>
+        <div style="display:flex;align-items:center;gap:0.8rem;">
+          <a id="cvDownloadBtn" href="cv.pdf" download="Merajul-Alam-CV.pdf"
+            style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.5rem 1.1rem;font-family:'DM Mono',monospace;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;background:var(--accent);color:#000;border:none;text-decoration:none;cursor:none;transition:background 0.2s;">↓ Download</a>
+          <button id="cvModalClose"
+            style="background:transparent;border:1px solid var(--border);color:var(--muted);font-size:0.9rem;width:2rem;height:2rem;cursor:none;display:flex;align-items:center;justify-content:center;transition:all 0.2s;font-family:'DM Mono',monospace;">✕</button>
+        </div>
+      </div>
+      <iframe id="cvFrame" src="cv.pdf" style="flex:1;width:100%;border:none;background:var(--surface);"
+        title="Merajul Alam — CV"></iframe>
+    </div>
+  </div>
+
+  <!-- PROJECT MODAL -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <button class="modal-close" id="modalClose">✕</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-logo">MRJ</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#activities">Activities</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left">
+      <div class="hero-tag">Available for opportunities</div>
+      <h1>Merajul Alam<br><span class="line2">Meraj</span></h1>
+      <p class="hero-desc">CSE graduate from Daffodil International University with a focus on machine learning, network
+        security, software testing and research.</p>
+      <div class="hero-cta">
+        <button
+          onclick="document.getElementById('cvModalOverlay').classList.add('open');document.body.style.overflow='hidden';"
+          class="btn btn-primary" style="border:none;">View CV</button>
+        <a href="#projects" class="btn btn-ghost">View Projects</a>
+        <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="photo-wrapper">
+        <div class="photo-frame">
+          <img src="mrj.png" alt="Merajul Alam" />
+          <div class="photo-scanlines"></div>
+          <div class="photo-label">Merajul Alam · CSE '26</div>
+        </div>
+        <div class="photo-dot">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div>
+      <p class="section-label">About</p>
+      <h2 class="section-title">Who <em>I am</em></h2>
+      <div class="about-text">
+        <p>I'm a dedicated Computer Science graduate with a deep passion for machine learning, cybersecurity and
+          building intelligent systems. My thesis explored contrastive learning for malware detection in IoT networks; a
+          field at the intersection of AI and real-world security challenges.</p>
+        <p>Beyond the lab, I've led national cybersecurity events, competed in algorithmic programming contests and
+          collaborated across universities as a campus ambassador. I thrive at the boundary between research and
+          practical application and actively looking for Master's Scholarships!</p>
+        <p>I'm fluent in English and Bengali and I communicate complex technical ideas clearly to both technical and
+          non-technical audiences.</p>
+      </div>
+    </div>
+    <div>
+      <p class="section-label">Tech Stack</p>
+      <h2 class="section-title" style="margin-bottom:2rem;">Skills <em>&</em><br>Tools</h2>
+      <div class="skills-grid">
+        <div class="skill-chip accent">Python</div>
+        <div class="skill-chip accent">C / C++</div>
+        <div class="skill-chip">Java</div>
+        <div class="skill-chip">TensorFlow</div>
+        <div class="skill-chip accent">Machine Learning</div>
+        <div class="skill-chip accent">Deep Learning</div>
+        <div class="skill-chip">MySQL / SQLite</div>
+        <div class="skill-chip">Firebase</div>
+        <div class="skill-chip">HTML / CSS / JS</div>
+        <div class="skill-chip">Scikit-learn</div>
+        <div class="skill-chip accent">Pandas / NumPy</div>
+        <div class="skill-chip accent">Cisco Packet Tracer</div>
+        <div class="skill-chip">Streamlit</div>
+        <div class="skill-chip">Bash / Shell</div>
+        <div class="skill-chip">Canva / CapCut</div>
+        <div class="skill-chip">Git</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <p class="section-label reveal">Education</p>
+    <h2 class="section-title reveal">Academic <em>Journey</em></h2>
+    <div class="edu-grid reveal">
+      <div class="edu-card bsc">
+        <div class="edu-level">Bachelor's Degree</div>
+        <div class="edu-degree">B.Sc. in Computer Science &amp; Engineering</div>
+        <div class="edu-school">Daffodil International University<br>Dhaka, Bangladesh</div>
+        <div class="edu-meta">
+          <div>
+            <div class="edu-gpa">3.86</div>
+            <div class="edu-gpa-label">CGPA / 4.0</div>
+          </div>
+          <div class="edu-period">Jan 2022<br>— Jan 2026</div>
+        </div>
+      </div>
+      <div class="edu-card hsc">
+        <div class="edu-level">Higher Secondary Certificate</div>
+        <div class="edu-degree">HSC — Science Group</div>
+        <div class="edu-school">Chattogram Government Model School &amp; College<br>Chattogram, Bangladesh</div>
+        <div class="edu-meta">
+          <div>
+            <div class="edu-gpa">5.0</div>
+            <div class="edu-gpa-label">GPA / 5.0</div>
+          </div>
+          <div class="edu-period">Jun 2018<br>— May 2020</div>
+        </div>
+      </div>
+      <div class="edu-card ssc">
+        <div class="edu-level">Secondary School Certificate</div>
+        <div class="edu-degree">SSC — Science Group</div>
+        <div class="edu-school">Bakolia Government High School<br>Chattogram, Bangladesh</div>
+        <div class="edu-meta">
+          <div>
+            <div class="edu-gpa">5.0</div>
+            <div class="edu-gpa-label">GPA / 5.0</div>
+          </div>
+          <div class="edu-period">Jan 2016<br>— Feb 2018</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="section-label reveal">Projects</p>
+    <h2 class="section-title reveal">Selected <em>Work</em></h2>
+    <div class="projects-grid">
+      <div class="project-card reveal" data-project="0">
+        <div class="project-num">01 — Thesis</div>
+        <div class="project-date">Jan 2025 – Jan 2026</div>
+        <div class="project-title">Contrastive Learning Based Malware Detection in IoT Networks</div>
+        <p class="project-desc">Developed a novel approach to malware detection using contrastive learning (SCARF, TCL),
+          significantly reducing reliance on labeled training data for IoT security systems.</p>
+        <div class="project-stack">
+          <span class="tag highlight">Python</span>
+          <span class="tag highlight">Contrastive Learning</span>
+          <span class="tag">TensorFlow</span>
+          <span class="tag">Keras</span>
+          <span class="tag">CNN / RNN / MLP</span>
+        </div>
+        <button class="project-open-btn">View Details →</button>
+      </div>
+      <div class="project-card reveal" data-project="1">
+        <div class="project-num">02</div>
+        <div class="project-date">Jul – Dec 2024</div>
+        <div class="project-title">Network Security Management System</div>
+        <p class="project-desc">Designed and simulated a scalable smart city network with multi-layer security,
+          redundant failover, and hierarchical design ensuring uninterrupted connectivity.</p>
+        <div class="project-stack">
+          <span class="tag highlight">Cisco Packet Tracer</span>
+          <span class="tag">ASA Firewalls</span>
+          <span class="tag">EIGRP / OSPF</span>
+          <span class="tag">VLANs</span>
+          <span class="tag">WPA2-PSK</span>
+        </div>
+        <button class="project-open-btn">View Details →</button>
+      </div>
+      <div class="project-card reveal" data-project="2">
+        <div class="project-num">03</div>
+        <div class="project-date">Jul – Dec 2024</div>
+        <div class="project-title">EduTrack: Student Management System</div>
+        <p class="project-desc">Built a centralized shell-scripted system automating student registration and grade
+          management with role-based access control and file-based database architecture.</p>
+        <div class="project-stack">
+          <span class="tag highlight">Bash / Shell</span>
+          <span class="tag highlight">Ubuntu OS</span>
+          <span class="tag">CSV / Git</span>
+          <span class="tag">Role-Based Access</span>
+          <span class="tag">ShellCheck</span>
+        </div>
+        <button class="project-open-btn">View Details →</button>
+      </div>
+      <div class="project-card reveal" data-project="3">
+        <div class="project-num">04</div>
+        <div class="project-date">Jul – Dec 2024</div>
+        <div class="project-title">Student Performance Prediction</div>
+        <p class="project-desc">Built and deployed a predictive model identifying previous scores and study hours as key
+          performance predictors, with an interactive Streamlit dashboard.</p>
+        <div class="project-stack">
+          <span class="tag highlight">Python</span>
+          <span class="tag highlight">Streamlit</span>
+          <span class="tag highlight">Linear Regression</span>
+          <span class="tag">Scikit-learn</span>
+          <span class="tag">Seaborn</span>
+        </div>
+        <button class="project-open-btn">View Details →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACTIVITIES -->
+  <section id="activities">
+    <p class="section-label reveal">Experience</p>
+    <h2 class="section-title reveal">Activities <em>&</em><br>Leadership</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-period" style="color:var(--accent)">Feb 2026</div>
+        <div class="timeline-role">Data Entry Volunteer</div>
+        <div class="timeline-org">Netra News — Election Monitoring &amp; Reporting Team</div>
+        <div class="timeline-desc">Supported real-time data processing and documentation for the Election Monitoring and
+          Reporting Team during election night operations across Bangladesh.</div>
+        <a href="https://netra.news" target="_blank" rel="noopener" class="timeline-link"
+          style="color:var(--accent);border-color:rgba(127,255,212,0.3)">Visit Netra News ↗</a>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--accent2);box-shadow:0 0 0 4px rgba(167,139,250,0.15)"></div>
+        <div class="timeline-period" style="color:var(--accent2)">Sep 2024 – Jan 2026</div>
+        <div class="timeline-role">Joint Lead Executive</div>
+        <div class="timeline-org">Cyber Security Club, Daffodil International University</div>
+        <div class="timeline-desc">Organized DIU_CyberCon 2025 — a national cybersecurity conference featuring a
+          National CTF Competition and technical workshops. Coordinated the Inter-University CTF Competition 2024 with
+          teams from institutions across Bangladesh.</div>
+        <a href="https://studentshub.daffodilvarsity.edu.bd/club/30/home" target="_blank" rel="noopener"
+          class="timeline-link" style="color:var(--accent2);border-color:rgba(167,139,250,0.3)">Visit DIU ↗</a>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--accent3);box-shadow:0 0 0 4px rgba(244,114,182,0.15)"></div>
+        <div class="timeline-period" style="color:var(--accent3)">May 2024 – Jun 2026</div>
+        <div class="timeline-role">Campus Ambassador</div>
+        <div class="timeline-org">Bangladesh Agricultural University Career Club (BAUCC)</div>
+        <div class="timeline-desc">Represented DIU as a Campus Ambassador for the National Career Carnival 2024 by
+          BAUCC. Facilitated communication between student participants and event organizers across universities.</div>
+        <a href="https://www.bau.edu.bd" target="_blank" rel="noopener" class="timeline-link"
+          style="color:var(--accent3);border-color:rgba(244,114,182,0.3)">Visit BAU ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACHIEVEMENTS -->
+  <section id="achievements">
+    <p class="section-label reveal">Recognition</p>
+    <h2 class="section-title reveal"><em>Achievements</em></h2>
+    <div class="achievements-list reveal">
+      <div class="achievement-item">
+        <div class="ach-icon">🏆</div>
+        <div class="ach-text"><strong>Top 20 — "Take-Off" Inter-University Programming Contest</strong><br>Competitive
+          programming contest organized by the Computer &amp; Programming Club, DIU.</div>
+      </div>
+      <div class="achievement-item">
+        <div class="ach-icon">🧠</div>
+        <div class="ach-text"><strong>Top 100 — "Unlock the Algorithm" University-Level Competition</strong><br>University-level
+          competition focused on algorithmic problem solving and coding proficiency.</div>
+      </div>
+      <div class="achievement-item">
+        <div class="ach-icon">🎓</div>
+        <div class="ach-text"><strong>CGPA 3.86 / 4.0 — B.Sc. in Computer Science &amp; Engineering</strong><br>Daffodil
+          International University. HSC &amp; SSC with perfect 5.0/5.0 GPA throughout academic career.</div>
+      </div>
+      <div class="achievement-item">
+        <div class="ach-icon">🔒</div>
+        <div class="ach-text"><strong>Thesis: Contrastive Learning for IoT Malware Detection</strong><br>Research-based
+          project demonstrating reduced reliance on labeled data using novel contrastive ML methods.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div>
+      <p class="section-label reveal">Contact</p>
+      <div class="contact-big reveal">Let's<br><em>connect</em><br>&amp; build.</div>
+      <p class="contact-subtext reveal">Open to graduate programs, research roles, software engineering positions and
+        collaborative projects in ML, AI, Computer Network or Cybersecurity.</p>
+      <div class="contact-direct reveal">
+        <a href="mailto:md.merajulalam01@gmail.com" class="contact-link">
+          <span class="c-icon"><i class="fas fa-envelope"></i></span>
+          <span>md.merajulalam01@gmail.com</span>
+        </a>
+        <a href="https://linkedin.com/in/merajul-alam" target="_blank" rel="noopener" class="contact-link">
+          <span class="c-icon"><i class="fab fa-linkedin-in"></i></span>
+          <span>linkedin.com/in/merajul-alam</span>
+        </a>
+        <a href="https://github.com/merajulalam" target="_blank" rel="noopener" class="contact-link">
+          <span class="c-icon"><i class="fab fa-github"></i></span>
+          <span>github.com/merajulalam</span>
+        </a>
+        <a href="tel:+8801521566983" class="contact-link">
+          <span class="c-icon"><i class="fas fa-phone"></i></span>
+          <span>+880 1521-566983</span>
+        </a>
+      </div>
+    </div>
+    <div class="contact-form-wrap reveal">
+      <p class="form-head">Send a Message</p>
+      <div class="setup-notice" id="setupNotice">
+        <strong>⚙ One-time setup required</strong> — to activate direct email sending:<br>
+        1. Go to <a href="https://www.emailjs.com" target="_blank">emailjs.com</a> → sign up free<br>
+        2. Add Gmail service → connect <strong>md.merajulalam01@gmail.com</strong><br>
+        3. Create an Email Template and replace the 3 placeholder values in the JS config
+      </div>
+      <form class="contact-form" id="contactForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">Name</label>
+            <input type="text" id="fname" name="from_name" placeholder="Your name" required />
+          </div>
+          <div class="form-group">
+            <label for="femail">Email</label>
+            <input type="email" id="femail" name="reply_to" placeholder="your@email.com" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="fsubject">Subject</label>
+          <input type="text" id="fsubject" name="subject" placeholder="What's this about?" required />
+        </div>
+        <div class="form-group">
+          <label for="fmessage">Message</label>
+          <textarea id="fmessage" name="message"
+            placeholder="Tell me about your project, opportunity, or just say hello..." required></textarea>
+        </div>
+        <button type="submit" class="form-submit" id="submitBtn">
+          <div class="spinner"></div>
+          <span id="btnText">Send Message</span>
+          <span id="btnArrow">→</span>
+        </button>
+        <div class="form-msg success" id="formSuccess">✓ Message sent! I'll get back to you soon.</div>
+        <div class="form-msg error" id="formError">✕ Something went wrong. Please email me directly.</div>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Md. Merajul Alam Meraj</span>
+    <span>Dhaka, Bangladesh</span>
+  </footer>
+
+  <!-- External JavaScript (loaded at end of body so DOM is ready) -->
+  <script src="script.js"></script>
+
+</body>
+</html>
